@@ -1,0 +1,19 @@
+server:
+  port: 2020
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:49092
+    consumer:
+      properties:
+        compression.type: gzip
+        spring.json.value.default.type: com.brunobs.auth.messaging.dto.AccountCacheDTO
+        spring.json.trusted.packages: com.brunobs.sdkcache.dto
+      group-id: auth-cache-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  application:
+    name: authorization-service
+  cache:
+    type: caffeine
