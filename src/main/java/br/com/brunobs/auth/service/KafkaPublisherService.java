@@ -16,7 +16,7 @@ public class KafkaPublisherService {
 
     @Retryable(
             retryFor = Exception.class,
-            maxAttempts = 5,
+            maxAttempts = 3,
             backoff = @Backoff(delay = 2000, multiplier = 2)
     )
     public void publish(KafkaPublishRequest request) {
@@ -32,7 +32,6 @@ public class KafkaPublisherService {
 
     @Recover
     public void recover(Exception ex, KafkaPublishRequest request) {
-
         System.out.println("Falha ao enviar mensagem após várias tentativas");
         System.out.println("Mensagem perdida: " + request);
     }

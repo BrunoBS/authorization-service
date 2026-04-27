@@ -65,6 +65,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             session.setAccountId(headers.account());
             session.setEnvironmentId(headers.environment());
             session.setApplicationId(headers.application());
+            session.setTraceId(headers.correlationId());
 
             AuthorizationContext authorizationContext = new AuthorizationContext(
                     session,

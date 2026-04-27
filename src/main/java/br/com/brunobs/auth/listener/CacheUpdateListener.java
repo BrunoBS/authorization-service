@@ -17,7 +17,6 @@ public class CacheUpdateListener {
 
     @KafkaListener(
             topics = "account-permissions-cache",
-            groupId = "${spring.application.name}-auth-group",
             containerFactory = "kafkaListenerContainerFactory"
     )
     public void onCacheUpdate(AccountCacheDTO dto) {
