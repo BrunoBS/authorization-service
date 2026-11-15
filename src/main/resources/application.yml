@@ -2,21 +2,8 @@ server:
   port: 2020
 
 spring:
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:49092}
-    consumer:
-      properties:
-        compression.type: gzip
-      group-id: "auth-cache-${spring.application.name}-${random.uuid}"
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   application:
     name: authorization-service
-
-authorization:
-  refresh:
-    url: ${AUTHORIZATION_REFRESH_URL:http://localhost:6060/kafka/publish}
 
 platform:
   messaging:

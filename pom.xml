@@ -48,14 +48,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <exclusions>
-                <exclusion><groupId>org.xerial.snappy</groupId><artifactId>snappy-java</artifactId></exclusion>
-                <exclusion><groupId>org.lz4</groupId><artifactId>lz4-java</artifactId></exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>br.com.portalmanager.platform.library</groupId>
             <artifactId>platform-redis</artifactId>
         </dependency>
@@ -77,18 +69,10 @@
             <version>0.13.0</version>
         </dependency>
         <dependency>
-            <groupId>br.com.portalmanager.platform.library</groupId>
-            <artifactId>platform-message-queue</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>0.13.0</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>br.com.portalmanager.platform.library</groupId>
-            <artifactId>platform-message-queue</artifactId>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

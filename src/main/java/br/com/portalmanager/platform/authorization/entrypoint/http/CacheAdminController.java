@@ -17,7 +17,6 @@ public class CacheAdminController {
     private static final Map<String, String> PREFIXES = Map.of(
             "AUTHZ", "AUTH::",
             "JWT", "authorization:session:",
-            "REFRESH_AUTHZ", "authorization:refresh:",
             "REPAIR_AUTHZ", "authorization:repair:"
     );
     private final RedisStore redis;

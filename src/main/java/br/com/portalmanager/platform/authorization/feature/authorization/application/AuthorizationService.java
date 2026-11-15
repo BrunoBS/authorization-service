@@ -37,8 +37,7 @@ public class AuthorizationService {
         String group = null;
         RuntimeException cacheFailure = null;
         try {
-            group = authCache.getAuthorizationGroup(session.getAccountId(), policy.name(),
-                    String.valueOf(session.getAccountId()), cacheKey);
+            group = authCache.getAuthorizationGroup(cacheKey);
         } catch (RuntimeException exception) {
             cacheFailure = exception;
         }

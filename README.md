@@ -4,12 +4,12 @@ Authorization Service follows the Golden Platform package layout: `core`, `featu
 
 ## Platform Libraries
 
-- `platform-redis` stores token sessions and authorization groups. Token sessions expire at the JWT expiry; authorization entries use a 40-minute TTL, with a 30-second refresh guard.
+- `platform-redis` stores token sessions and authorization groups. Token sessions expire at the JWT expiry; authorization entries use a 40-minute TTL.
 - `platform-messaging` resolves the platform error response format. Message definitions are in `src/main/resources/META-INF/platform-messages`.
 - `platform-observability` provides the platform JSON logging defaults.
 - `platform-message-queue` publishes optional authorization repair requests. Set `AUTHORIZATION_REPAIR_ENABLED=true` and configure AWS credentials and `AUTHORIZATION_REPAIR_QUEUE` to enable publication.
 
-Kafka remains the existing cache refresh channel. `AUTHORIZATION_REFRESH_URL` configures its HTTP publisher endpoint.
+Workspace owns authorization group data and refreshes the shared Redis keys on its scheduled synchronization. It must write those keys in the `authorization-service` Redis namespace. The Authorization Service reads Redis first and uses the configured view query when a key is absent or Redis is unavailable.
 
 ## Authorization view fallback
 
