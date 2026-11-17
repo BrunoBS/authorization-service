@@ -1,4 +1,7 @@
-package br.com.portalmanager.platform.authorization.core.authorization.group;
+package br.com.portalmanager.platform.authorization.core.authentication;
+
+import br.com.portalmanager.platform.authorization.core.authorization.group.GroupParser;
+import br.com.portalmanager.platform.authorization.core.authorization.group.ParsedGroup;
 
 
 import java.time.Instant;

@@ -1,4 +1,4 @@
-package br.com.portalmanager.platform.authorization.core.authorization.group;
+package br.com.portalmanager.platform.authorization.core.authorization.context;
 
 public class UserContext {
 
