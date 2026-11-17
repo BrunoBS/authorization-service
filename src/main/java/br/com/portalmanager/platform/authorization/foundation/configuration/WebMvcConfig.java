@@ -2,7 +2,7 @@ package br.com.portalmanager.platform.authorization.foundation.configuration;
 
 
 import br.com.portalmanager.platform.authorization.entrypoint.http.security.interceptor.AuthorizationInterceptor;
-import br.com.portalmanager.platform.authorization.core.authorization.application.AuthorizationService;
+import br.com.portalmanager.platform.authorization.core.authorization.usecase.operations.AuthorizationService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

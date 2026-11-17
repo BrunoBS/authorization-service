@@ -1,5 +1,7 @@
 package br.com.portalmanager.platform.authorization.core.authorization.contract;
 
+import br.com.portalmanager.platform.authorization.core.authorization.context.UserContext;
+
 public class AuthorizationResponse {
 
     private boolean allowed;

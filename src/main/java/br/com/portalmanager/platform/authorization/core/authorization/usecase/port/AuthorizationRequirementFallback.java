@@ -1,4 +1,4 @@
-package br.com.portalmanager.platform.authorization.core.authorization.contract;
+package br.com.portalmanager.platform.authorization.core.authorization.usecase.port;
 
 import java.util.Optional;
 

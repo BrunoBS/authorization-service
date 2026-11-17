@@ -5,7 +5,7 @@ import br.com.portalmanager.platform.authorization.core.authorization.context.Au
 import br.com.portalmanager.platform.authorization.core.authorization.context.UserContext;
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationPolicy;
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationRequired;
-import br.com.portalmanager.platform.authorization.core.authorization.application.AuthorizationService;
+import br.com.portalmanager.platform.authorization.core.authorization.usecase.operations.AuthorizationService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

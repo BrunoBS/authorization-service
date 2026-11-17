@@ -2,6 +2,8 @@
 
 Authorization Service follows the Golden Platform package layout: `core/authentication`, `core/authorization`, `foundation`, and `entrypoint`. Its build inherits `platform-parent` and imports `platform-libraries-bom` at version `1.0.0`.
 
+Authorization behavior is organized under `core/authorization/usecase/operations`; outbound fallback is defined as a use-case port under `core/authorization/usecase/port`. The service has no `Application` business domain.
+
 ## Platform Libraries
 
 - `platform-redis` stores token sessions and authorization groups. Token sessions expire at the JWT expiry; authorization entries use a 40-minute TTL.

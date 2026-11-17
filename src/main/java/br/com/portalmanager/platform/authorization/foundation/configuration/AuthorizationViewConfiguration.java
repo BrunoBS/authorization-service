@@ -1,6 +1,6 @@
 package br.com.portalmanager.platform.authorization.foundation.configuration;
 
-import br.com.portalmanager.platform.authorization.core.authorization.contract.AuthorizationRequirementFallback;
+import br.com.portalmanager.platform.authorization.core.authorization.usecase.port.AuthorizationRequirementFallback;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
