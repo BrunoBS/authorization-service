@@ -1,11 +1,11 @@
-package br.com.portalmanager.platform.authorization.entrypoint.security.interceptor;
+package br.com.portalmanager.platform.authorization.entrypoint.http.security.interceptor;
 
 
-import br.com.portalmanager.platform.authorization.core.context.AuthorizationContext;
-import br.com.portalmanager.platform.authorization.core.context.UserContext;
+import br.com.portalmanager.platform.authorization.core.authorization.context.AuthorizationContext;
+import br.com.portalmanager.platform.authorization.core.authorization.context.UserContext;
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationPolicy;
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationRequired;
-import br.com.portalmanager.platform.authorization.feature.authorization.application.AuthorizationService;
+import br.com.portalmanager.platform.authorization.core.authorization.application.AuthorizationService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

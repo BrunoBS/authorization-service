@@ -1,8 +1,8 @@
 package br.com.portalmanager.platform.authorization.entrypoint.http;
 
-import br.com.portalmanager.platform.authorization.core.context.AuthorizationContext;
-import br.com.portalmanager.platform.authorization.core.context.UserContext;
-import br.com.portalmanager.platform.authorization.core.context.UserSession;
+import br.com.portalmanager.platform.authorization.core.authorization.context.AuthorizationContext;
+import br.com.portalmanager.platform.authorization.core.authorization.context.UserContext;
+import br.com.portalmanager.platform.authorization.core.authentication.UserSession;
 import br.com.portalmanager.platform.library.messaging.api.exception.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;

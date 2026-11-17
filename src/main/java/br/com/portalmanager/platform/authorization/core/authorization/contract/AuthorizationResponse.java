@@ -1,4 +1,4 @@
-package br.com.portalmanager.platform.authorization.feature.authorization.contract;
+package br.com.portalmanager.platform.authorization.core.authorization.contract;
 
 public class AuthorizationResponse {
 

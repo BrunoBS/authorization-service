@@ -1,6 +1,6 @@
 # Authorization Service
 
-Authorization Service follows the Golden Platform package layout: `core`, `feature`, `foundation`, and `entrypoint`. Its build inherits `platform-parent` and imports `platform-libraries-bom` at version `1.0.0`.
+Authorization Service follows the Golden Platform package layout: `core/authentication`, `core/authorization`, `foundation`, and `entrypoint`. Its build inherits `platform-parent` and imports `platform-libraries-bom` at version `1.0.0`.
 
 ## Platform Libraries
 

@@ -1,7 +1,7 @@
-package br.com.portalmanager.platform.authorization.feature.authorization.application;
+package br.com.portalmanager.platform.authorization.core.authorization.application;
 
-import br.com.portalmanager.platform.authorization.feature.authorization.contract.AuthorizationRepairRequested;
-import br.com.portalmanager.platform.authorization.core.context.UserSession;
+import br.com.portalmanager.platform.authorization.core.authorization.contract.AuthorizationRepairRequested;
+import br.com.portalmanager.platform.authorization.core.authentication.UserSession;
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationPolicy;
 import br.com.portalmanager.platform.library.messagequeue.api.contract.MessageQueuePublisher;
 import br.com.portalmanager.platform.library.redis.api.store.RedisStore;

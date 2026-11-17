@@ -1,8 +1,8 @@
-package br.com.portalmanager.platform.authorization.feature.authorization.application;
+package br.com.portalmanager.platform.authorization.core.authorization.application;
 
-import br.com.portalmanager.platform.authorization.core.context.ParsedGroup;
-import br.com.portalmanager.platform.authorization.core.context.UserSession;
-import br.com.portalmanager.platform.authorization.feature.authorization.contract.AuthorizationRequirementFallback;
+import br.com.portalmanager.platform.authorization.core.authorization.group.ParsedGroup;
+import br.com.portalmanager.platform.authorization.core.authentication.UserSession;
+import br.com.portalmanager.platform.authorization.core.authorization.contract.AuthorizationRequirementFallback;
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationPolicy;
 import org.springframework.beans.factory.ObjectProvider;
 import br.com.portalmanager.platform.library.messaging.api.exception.ForbiddenException;

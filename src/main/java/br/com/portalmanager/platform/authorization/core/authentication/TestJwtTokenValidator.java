@@ -1,6 +1,6 @@
-package br.com.portalmanager.platform.authorization.feature.authentication;
+package br.com.portalmanager.platform.authorization.core.authentication;
 
-import br.com.portalmanager.platform.authorization.core.context.UserSession;
+import br.com.portalmanager.platform.authorization.core.authentication.UserSession;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

@@ -1,4 +1,4 @@
-package br.com.portalmanager.platform.authorization.feature.authorization.application;
+package br.com.portalmanager.platform.authorization.core.authorization.application;
 
 import br.com.portalmanager.platform.library.redis.api.store.RedisStore;
 import org.springframework.stereotype.Service;

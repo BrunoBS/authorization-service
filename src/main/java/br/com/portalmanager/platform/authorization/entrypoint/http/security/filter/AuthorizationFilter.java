@@ -1,10 +1,10 @@
-package br.com.portalmanager.platform.authorization.entrypoint.security.filter;
+package br.com.portalmanager.platform.authorization.entrypoint.http.security.filter;
 
-import br.com.portalmanager.platform.authorization.core.context.AuthorizationContext;
-import br.com.portalmanager.platform.authorization.core.context.UserContext;
-import br.com.portalmanager.platform.authorization.core.context.UserSession;
-import br.com.portalmanager.platform.authorization.feature.authentication.TokenSessionStore;
-import br.com.portalmanager.platform.authorization.feature.authentication.TokenValidator;
+import br.com.portalmanager.platform.authorization.core.authorization.context.AuthorizationContext;
+import br.com.portalmanager.platform.authorization.core.authorization.context.UserContext;
+import br.com.portalmanager.platform.authorization.core.authentication.UserSession;
+import br.com.portalmanager.platform.authorization.core.authentication.TokenSessionStore;
+import br.com.portalmanager.platform.authorization.core.authentication.TokenValidator;
 import br.com.portalmanager.platform.authorization.foundation.security.TokenHashUtil;
 import br.com.portalmanager.platform.authorization.entrypoint.http.headers.RequestHeaders;
 import br.com.portalmanager.platform.authorization.entrypoint.http.headers.RequestHeadersFactory;

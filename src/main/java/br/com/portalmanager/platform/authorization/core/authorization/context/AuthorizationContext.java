@@ -1,4 +1,4 @@
-package br.com.portalmanager.platform.authorization.core.context;
+package br.com.portalmanager.platform.authorization.core.authorization.group;
 
 
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationPolicy;
