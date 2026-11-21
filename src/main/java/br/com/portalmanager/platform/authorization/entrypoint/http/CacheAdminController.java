@@ -27,30 +27,34 @@ public class CacheAdminController {
 
     @GetMapping("/inspect")
     public List<String> inspect(@PathVariable String type) {
-        return matchingKeys(prefix(type));
+        return matchingKeys(store(type), prefix(type));
     }
 
     @DeleteMapping("/clear")
     public Map<String, Long> clear(@PathVariable String type) {
-        List<String> keys = matchingKeys(prefix(type));
-        long deleted = keys.isEmpty() ? 0 : redis.deleteAll(keys);
+        List<String> keys = matchingKeys(store(type), prefix(type));
+        long deleted = keys.isEmpty() ? 0 : store(type).deleteAll(keys);
         return Map.of("deleted", deleted);
     }
 
     @GetMapping("/stats")
     public Map<String, Integer> stats(@PathVariable String type) {
-        return Map.of("estimatedSize", matchingKeys(prefix(type)).size());
+        return Map.of("estimatedSize", matchingKeys(store(type), prefix(type)).size());
     }
 
-    private List<String> matchingKeys(String prefix) {
+    private List<String> matchingKeys(RedisStore store, String prefix) {
         List<String> keys = new ArrayList<>();
         String cursor = "0";
         do {
-            RedisKeyPage page = redis.scan(prefix, cursor, 250);
+            RedisKeyPage page = store.scan(prefix, cursor, 250);
             keys.addAll(page.keys());
             cursor = page.cursor();
         } while (!"0".equals(cursor));
         return List.copyOf(keys);
+    }
+
+    private RedisStore store(String type) {
+        return "AUTHZ".equalsIgnoreCase(type) ? redis.withNamespace("authorization-cache") : redis;
     }
 
     private String prefix(String type) {

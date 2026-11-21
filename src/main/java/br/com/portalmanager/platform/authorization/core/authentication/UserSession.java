@@ -3,12 +3,12 @@ package br.com.portalmanager.platform.authorization.core.authentication;
 import br.com.portalmanager.platform.authorization.core.authorization.group.GroupParser;
 import br.com.portalmanager.platform.authorization.core.authorization.group.ParsedGroup;
 
-
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.UUID;
 
 public class UserSession {
 
@@ -16,9 +16,9 @@ public class UserSession {
     private String userName;
     private String email;
 
-    private Long accountId;
-    private Long applicationId;
-    private Long environmentId;
+    private UUID accountId;
+    private UUID applicationId;
+    private UUID environmentId;
     private String traceId;
 
     private Set<String> groups;
@@ -93,15 +93,15 @@ public class UserSession {
         return email;
     }
 
-    public Long getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
-    public Long getApplicationId() {
+    public UUID getApplicationId() {
         return applicationId;
     }
 
-    public Long getEnvironmentId() {
+    public UUID getEnvironmentId() {
         return environmentId;
     }
 
@@ -134,15 +134,15 @@ public class UserSession {
         this.email = email;
     }
 
-    public void setAccountId(Long accountId) {
+    public void setAccountId(UUID accountId) {
         this.accountId = accountId;
     }
 
-    public void setApplicationId(Long applicationId) {
+    public void setApplicationId(UUID applicationId) {
         this.applicationId = applicationId;
     }
 
-    public void setEnvironmentId(Long environmentId) {
+    public void setEnvironmentId(UUID environmentId) {
         this.environmentId = environmentId;
     }
 

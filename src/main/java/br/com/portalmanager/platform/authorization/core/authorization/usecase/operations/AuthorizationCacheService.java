@@ -7,11 +7,11 @@ import java.time.Duration;
 
 @Service
 public class AuthorizationCacheService {
-    private static final Duration CACHE_TTL = Duration.ofMinutes(40);
+    private static final Duration CACHE_TTL = Duration.ofMinutes(30);
     private final RedisStore redis;
 
     public AuthorizationCacheService(RedisStore redis) {
-        this.redis = redis;
+        this.redis = redis.withNamespace("authorization-cache");
     }
 
     public String getAuthorizationGroup(String cacheKey) {
@@ -19,6 +19,6 @@ public class AuthorizationCacheService {
     }
 
     public void cacheFallbackValue(String cacheKey, String group) {
-        redis.set(cacheKey, group, CACHE_TTL);
+        redis.setIfAbsent(cacheKey, group, CACHE_TTL);
     }
 }

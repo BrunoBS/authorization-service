@@ -3,6 +3,7 @@ package br.com.portalmanager.platform.authorization.entrypoint.http.headers;
 
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationPolicy;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.UUID;
 import org.springframework.http.HttpMethod;
 
 public class RequestHeadersFactory {
@@ -11,22 +12,30 @@ public class RequestHeadersFactory {
 
 
         return new RequestHeaders(
-                request.getHeader("X-Correlation-Id"),
+                header(request, "correlationId", "X-Correlation-Id"),
                 request.getHeader("Authorization"),
-                parseLong(request.getHeader("X-Account-Id")),
-                parseLong(request.getHeader("X-Environment")),
-                parseLong(request.getHeader("X-Application-Id")),
+                parseIdentifier(header(request, "workspaceIdentifier", "X-Account-Id")),
+                parseIdentifier(header(request, "environmentIdentifier", "X-Environment")),
+                parseIdentifier(header(request, "applicationIdentifier", "X-Application-Id")),
                 parseHttpMethod(request.getMethod()),
-                parsePolicy(request.getHeader("X-Policy"))
+                parsePolicy(header(request, "policy", "X-Policy"))
         );
     }
 
-    private static Long parseLong(String value) {
-        try {
-            return value != null ? Long.valueOf(value) : null;
-        } catch (NumberFormatException e) {
+    private static String header(HttpServletRequest request, String name, String legacyName) {
+        String value = request.getHeader(name);
+        return value == null ? request.getHeader(legacyName) : value;
+    }
+
+    private static UUID parseIdentifier(String value) {
+        if (value == null) {
             return null;
         }
+        UUID identifier = UUID.fromString(value);
+        if (!identifier.toString().equalsIgnoreCase(value)) {
+            throw new IllegalArgumentException("Invalid resource identifier");
+        }
+        return identifier;
     }
 
     private static HttpMethod parseHttpMethod(String method) {
