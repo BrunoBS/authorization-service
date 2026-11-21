@@ -1,6 +1,7 @@
 package br.com.portalmanager.platform.authorization.core.authorization.usecase.operations;
 
 import br.com.portalmanager.platform.authorization.core.authorization.group.ParsedGroup;
+import br.com.portalmanager.platform.authorization.core.authorization.group.GroupParser;
 import br.com.portalmanager.platform.authorization.core.authentication.UserSession;
 import br.com.portalmanager.platform.authorization.core.authorization.usecase.port.AuthorizationRequirementFallback;
 import br.com.portalmanager.platform.authorization.core.authorization.AuthorizationPolicy;
@@ -33,7 +34,8 @@ public class AuthorizationService {
         if (AuthorizationPolicy.OWNER.equals(policy)) throw new ForbiddenException("authorization.access-denied");
 
         if (policy == null) throw new ApiException("authorization.policy-required");
-        String cacheKey = buildCacheKey(session, policy);
+        if (session.getAccountId() == null) throw new ForbiddenException("authorization.access-denied");
+        String cacheKey = buildCacheKey(session);
         String group = null;
         RuntimeException cacheFailure = null;
         try {
@@ -63,24 +65,29 @@ public class AuthorizationService {
                 // The view answered, so use its value for this request even if Redis remains unavailable.
             }
         }
-        if (!hasAccess(session.getAuthorizerGroups(), group)) {
+        String requiredGroup = group.replace("__DEFAULT_TYPE__", policy.name());
+        if (!hasAccess(session.getAuthorizerGroups(), requiredGroup)) {
             throw new ForbiddenException("authorization.access-denied");
         }
     }
 
-    private String buildCacheKey(UserSession session, AuthorizationPolicy policy) {
+    private String buildCacheKey(UserSession session) {
         return String.format("AUTH::%s::%s::%s", session.getAccountId(),
-                session.getEnvironmentId() != null ? session.getEnvironmentId() : policy.name(),
+                session.getEnvironmentId() != null ? session.getEnvironmentId() : "NONE",
                 session.getApplicationId() != null ? session.getApplicationId() : "NONE");
     }
 
     public boolean hasAccess(Set<ParsedGroup> userGroups, String requiredGroup) {
-        AuthorizationPolicy required = AuthorizationPolicy.resolveEnvironment(requiredGroup);
+        Set<ParsedGroup> parsedRequirements = GroupParser.parse(Set.of(requiredGroup));
+        if (parsedRequirements.isEmpty()) {
+            return false;
+        }
+        AuthorizationPolicy required = AuthorizationPolicy.valueOf(parsedRequirements.iterator().next().environment());
         String suffixRequired = extractSuffix(requiredGroup);
         return userGroups.stream().anyMatch(group -> {
             String suffixUser = extractSuffix(group.fullGroup());
             if (!suffixRequired.equals(suffixUser)) return false;
-            AuthorizationPolicy userLevel = AuthorizationPolicy.resolveEnvironment(group.fullGroup());
+            AuthorizationPolicy userLevel = AuthorizationPolicy.valueOf(group.environment());
             return userLevel.getLevel() >= required.getLevel();
         });
     }

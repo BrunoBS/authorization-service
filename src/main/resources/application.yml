@@ -42,4 +42,9 @@ platform:
       jdbc-url: ${WORKSPACE_AUTHORIZATION_JDBC_URL:}
       username: ${WORKSPACE_AUTHORIZATION_JDBC_USERNAME:}
       password: ${WORKSPACE_AUTHORIZATION_JDBC_PASSWORD:}
-      query: ${WORKSPACE_AUTHORIZATION_VIEW_QUERY:}
+      query: >-
+        ${WORKSPACE_AUTHORIZATION_VIEW_QUERY:SELECT DISTINCT authorizerGroup
+        FROM vw_authorizations
+        WHERE CONCAT('AUTH::', LOWER(workspaceIdentifier), '::',
+        COALESCE(LOWER(environmentIdentifier), 'NONE'), '::',
+        COALESCE(LOWER(applicationIdentifier), 'NONE')) = ?}

@@ -43,7 +43,14 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        RequestHeaders headers = RequestHeadersFactory.from(request);
+        RequestHeaders headers;
+        try {
+            headers = RequestHeadersFactory.from(request);
+        } catch (IllegalArgumentException exception) {
+            writeError(response, request, "authorization.invalid-resource-identifier",
+                    HttpServletResponse.SC_BAD_REQUEST, request.getHeader("correlationId"));
+            return;
+        }
         String authorization = headers.authorization();
         if (authorization == null || !authorization.startsWith("Bearer ") || authorization.length() <= 7) {
             writeError(response, request, "authentication.invalid-token", HttpServletResponse.SC_UNAUTHORIZED,
