@@ -1,0 +1,25 @@
+# Authorization Service
+
+Authorization Service follows the Golden Platform package layout: `core/authentication`, `core/authorization`, `foundation`, and `entrypoint`. Its build inherits `platform-parent` and imports `platform-libraries-bom` at version `1.0.0`.
+
+Authorization behavior is organized under `core/authorization/usecase/operations`; outbound fallback is defined as a use-case port under `core/authorization/usecase/port`. The service has no `Application` business domain.
+
+## Platform Libraries
+
+- `platform-redis` stores token sessions and authorization groups. Token sessions expire at the JWT expiry; authorization entries use a 40-minute TTL.
+- `platform-messaging` resolves the platform error response format. Message definitions are in `src/main/resources/META-INF/platform-messages`.
+- `platform-observability` provides the platform JSON logging defaults.
+- `platform-message-queue` publishes optional authorization repair requests. Set `AUTHORIZATION_REPAIR_ENABLED=true` and configure AWS credentials and `AUTHORIZATION_REPAIR_QUEUE` to enable publication.
+
+Workspace owns authorization group data and refreshes the shared Redis keys on its scheduled synchronization. It must write those keys in the `authorization-service` Redis namespace. The Authorization Service reads Redis first and uses the configured view query when a key is absent or Redis is unavailable.
+
+## Authorization view fallback
+
+The cache lookup falls back to the Workspace authorization view when Redis has no usable value or is unavailable. Enable it with `AUTHORIZATION_VIEW_FALLBACK_ENABLED=true`, then configure:
+
+- `WORKSPACE_AUTHORIZATION_JDBC_URL`
+- `WORKSPACE_AUTHORIZATION_JDBC_USERNAME`
+- `WORKSPACE_AUTHORIZATION_JDBC_PASSWORD`
+- `WORKSPACE_AUTHORIZATION_VIEW_QUERY`
+
+The query must accept the logical authorization cache key as its single positional `?` parameter and return zero or one row, with the required group in column 1. A successful empty result is treated as a denial (403); a database/query failure is treated as unavailable (503). The database account should have read-only access to the view. Redis is repopulated from a successful view result when available.

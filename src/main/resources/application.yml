@@ -2,18 +2,44 @@ server:
   port: 2020
 
 spring:
-  kafka:
-    bootstrap-servers: localhost:49092
-    consumer:
-      properties:
-        compression.type: gzip
-        spring.json.value.default.type: com.brunobs.auth.messaging.dto.AccountCacheDTO
-        spring.json.trusted.packages: com.brunobs.sdkcache.dto
-      group-id: "auth-cache-${spring.application.name}-${random.uuid}"
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   application:
     name: authorization-service
-  cache:
-    type: caffeine
+
+platform:
+  messaging:
+    enabled: true
+    default-locale: pt-BR
+  redis:
+    connection:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      database: ${REDIS_DATABASE:0}
+      username: ${REDIS_USERNAME:}
+      password: ${REDIS_PASSWORD:}
+      command-timeout: 2s
+      connect-timeout: 2s
+    limits:
+      max-key-bytes: 256
+      max-payload-bytes: 1048576
+      max-batch-size: 1000
+      max-read-size: 1000
+  message-queue:
+    provider: AWS
+    aws:
+      region: ${AWS_REGION:us-east-1}
+    destinations:
+      authorization-repair:
+        queue: ${AUTHORIZATION_REPAIR_QUEUE:authorization-repair-requests}
+        publisher:
+          enabled: true
+        consumer:
+          enabled: false
+  authorization:
+    repair-destination: authorization-repair
+    repair-enabled: ${AUTHORIZATION_REPAIR_ENABLED:false}
+    fallback:
+      enabled: ${AUTHORIZATION_VIEW_FALLBACK_ENABLED:false}
+      jdbc-url: ${WORKSPACE_AUTHORIZATION_JDBC_URL:}
+      username: ${WORKSPACE_AUTHORIZATION_JDBC_USERNAME:}
+      password: ${WORKSPACE_AUTHORIZATION_JDBC_PASSWORD:}
+      query: ${WORKSPACE_AUTHORIZATION_VIEW_QUERY:}
